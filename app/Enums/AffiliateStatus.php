@@ -2,7 +2,9 @@
 
 namespace App\Enums;
 
-enum AffiliateStatus: string
+use Filament\Support\Contracts\HasColor;
+
+enum AffiliateStatus: string implements \Filament\Support\Contracts\HasLabel, HasColor
 {
     use HasLabel;
 

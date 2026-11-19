@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Http;
 
+use App\Domain\Notifications\Notifier;
+use App\Domain\Notifications\Sms\SmsGateway;
 use App\Domain\Orders\OrderService;
 use App\Models\NotificationLog;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,7 +21,7 @@ class NotificationTest extends TestCase
         $order = $this->order($admin, [[$variant, 1]]);
         app(OrderService::class)->confirm($order, $admin);
         // Re-dispatch the same event (retry): still one log.
-        app(\App\Domain\Notifications\Notifier::class)->orderConfirmed($order->refresh());
+        app(Notifier::class)->orderConfirmed($order->refresh());
 
         $logs = NotificationLog::where('template', 'order_confirmed')->get();
         $this->assertCount(1, $logs);
@@ -29,9 +31,9 @@ class NotificationTest extends TestCase
 
     public function test_test_driver_is_refused_in_production(): void
     {
-        $this->app->forgetInstance(\App\Domain\Notifications\Sms\SmsGateway::class);
+        $this->app->forgetInstance(SmsGateway::class);
         $this->app['env'] = 'production';
         $this->expectException(\RuntimeException::class);
-        $this->app->make(\App\Domain\Notifications\Sms\SmsGateway::class);
+        $this->app->make(SmsGateway::class);
     }
 }

@@ -18,6 +18,7 @@ use App\Enums\SalesChannel;
 use App\Enums\StockMovementType;
 use App\Models\Affiliate;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\User;
@@ -27,6 +28,8 @@ use Database\Seeders\Support\SampleImageGenerator;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use RuntimeException;
 
 /**
@@ -81,7 +84,7 @@ class DevelopmentSeeder extends Seeder
     {
         $binary = SampleImageGenerator::hero();
         $disk = Storage::disk(config('sudar.images.disk'));
-        $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver);
+        $manager = new ImageManager(new Driver);
         $webp = [];
         foreach ([640, 1024, 1600] as $w) {
             $path = "hero/sample-hero-{$w}.webp";
@@ -184,7 +187,7 @@ class DevelopmentSeeder extends Seeder
     /** @param array<string, ProductVariant> $variants */
     private function seedOrders(User $admin, Affiliate $affiliate, array $variants): void
     {
-        if (\App\Models\Order::exists()) {
+        if (Order::exists()) {
             return;
         }
         $orders = app(OrderService::class);

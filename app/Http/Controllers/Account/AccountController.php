@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\PurchasedUnit;
+use App\Models\WarrantyRegistration;
 use App\Support\Audit;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
@@ -66,7 +67,7 @@ class AccountController extends Controller
         return view('account.warranties', [
             'units' => $units,
             'registrations' => $customer->warrantyRegistrations()->with('order')->get()
-                ->merge(\App\Models\WarrantyRegistration::whereHas('order', fn ($q) => $q->where('customer_id', $customer->id))->get())->unique('id'),
+                ->merge(WarrantyRegistration::whereHas('order', fn ($q) => $q->where('customer_id', $customer->id))->get())->unique('id'),
             'seo' => Seo::make('My warranties', null, ['noindex' => true]),
         ]);
     }

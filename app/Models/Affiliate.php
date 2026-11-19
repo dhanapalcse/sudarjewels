@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\AffiliateStatus;
 use App\Enums\PayoutMethod;
+use App\Support\Mask;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -71,9 +72,9 @@ class Affiliate extends Model
     public function maskedPayoutDestination(): ?string
     {
         return match ($this->payout_method) {
-            PayoutMethod::Upi => $this->payout_upi_id ? 'UPI '.\App\Support\Mask::upi($this->payout_upi_id) : null,
+            PayoutMethod::Upi => $this->payout_upi_id ? 'UPI '.Mask::upi($this->payout_upi_id) : null,
             PayoutMethod::BankTransfer => $this->payout_account_number
-                ? 'A/c '.\App\Support\Mask::tail($this->payout_account_number).' · '.$this->payout_ifsc
+                ? 'A/c '.Mask::tail($this->payout_account_number).' · '.$this->payout_ifsc
                 : null,
             default => null,
         };

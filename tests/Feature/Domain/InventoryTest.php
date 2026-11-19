@@ -3,10 +3,12 @@
 namespace Tests\Feature\Domain;
 
 use App\Domain\Inventory\InsufficientStock;
+use App\Domain\Inventory\InventoryService;
 use App\Domain\Orders\FulfilmentService;
 use App\Domain\Orders\OrderService;
 use App\Enums\OrderStatus;
 use App\Enums\ReservationStatus;
+use App\Exceptions\BusinessRuleException;
 use App\Models\StockMovement;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -108,7 +110,7 @@ class InventoryTest extends TestCase
         $variant = $this->variant(10000, 2);
         app(OrderService::class)->confirm($this->order($admin, [[$variant, 2]]), $admin);
 
-        $this->expectException(\App\Exceptions\BusinessRuleException::class);
-        app(\App\Domain\Inventory\InventoryService::class)->adjust($variant, -1, 'stocktake-1', $admin);
+        $this->expectException(BusinessRuleException::class);
+        app(InventoryService::class)->adjust($variant, -1, 'stocktake-1', $admin);
     }
 }

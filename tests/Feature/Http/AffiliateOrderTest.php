@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http;
 
+use App\Domain\Orders\OrderService;
 use App\Enums\OrderStatus;
 use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -107,7 +108,7 @@ class AffiliateOrderTest extends TestCase
         $variant = $this->variant(50000, 5);
         $this->actingAs($me->user)->post(route('affiliate.orders.store'), $this->payload($variant->id));
         $order = Order::firstOrFail();
-        app(\App\Domain\Orders\OrderService::class)->confirm($order, $admin);
+        app(OrderService::class)->confirm($order, $admin);
 
         $this->actingAs($me->user)->put(route('affiliate.orders.update', $order), $this->payload($variant->id))->assertForbidden();
         $this->actingAs($me->user)->post(route('affiliate.orders.change-request', $order), ['message' => 'Please change the address'])->assertRedirect();

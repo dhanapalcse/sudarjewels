@@ -2,7 +2,9 @@
 
 namespace App\Enums;
 
-enum OrderStatus: string
+use Filament\Support\Contracts\HasColor;
+
+enum OrderStatus: string implements \Filament\Support\Contracts\HasLabel, HasColor
 {
     use HasLabel, HasTransitions;
 

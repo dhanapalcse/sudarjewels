@@ -26,6 +26,8 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
 
     protected $fillable = ['name', 'email', 'phone', 'password', 'is_active'];
 
+    protected $attributes = ['is_active' => true];
+
     protected $hidden = ['password', 'remember_token'];
 
     protected function casts(): array

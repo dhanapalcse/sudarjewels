@@ -25,6 +25,9 @@ return [
 
     'order_number_prefix' => env('ORDER_NUMBER_PREFIX', 'SJ'),
 
+    // Staff must enrol TOTP two-factor authentication before using /admin.
+    'admin_require_2fa' => (bool) env('ADMIN_REQUIRE_2FA', true),
+
     'commission' => [
         // Basis points: 2000 = 20.00 %
         'default_rate_bp' => 2000,

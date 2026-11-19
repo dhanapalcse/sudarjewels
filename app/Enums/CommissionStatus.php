@@ -2,7 +2,9 @@
 
 namespace App\Enums;
 
-enum CommissionStatus: string
+use Filament\Support\Contracts\HasColor;
+
+enum CommissionStatus: string implements \Filament\Support\Contracts\HasLabel, HasColor
 {
     use HasLabel;
 

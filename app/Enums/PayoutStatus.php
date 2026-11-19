@@ -2,7 +2,9 @@
 
 namespace App\Enums;
 
-enum PayoutStatus: string
+use Filament\Support\Contracts\HasColor;
+
+enum PayoutStatus: string implements \Filament\Support\Contracts\HasLabel, HasColor
 {
     use HasLabel, HasTransitions;
 

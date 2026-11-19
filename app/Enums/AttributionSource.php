@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum AttributionSource: string
+enum AttributionSource: string implements \Filament\Support\Contracts\HasLabel
 {
     use HasLabel;
 

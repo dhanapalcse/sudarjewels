@@ -7,6 +7,7 @@ use App\Enums\WarrantyStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * One physical piece of jewellery sold. Order items with quantity N have N units,
@@ -65,7 +66,7 @@ class PurchasedUnit extends Model
 
     public function isCovered(?\DateTimeInterface $at = null): bool
     {
-        $at = $at ? \Illuminate\Support\Carbon::instance($at) : now();
+        $at = $at ? Carbon::instance($at) : now();
 
         return $this->warranty_status === WarrantyStatus::Registered
             && $this->warranty_starts_at && $this->warranty_ends_at

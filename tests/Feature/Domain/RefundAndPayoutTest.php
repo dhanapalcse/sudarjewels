@@ -15,6 +15,7 @@ use App\Enums\PayoutMethod;
 use App\Enums\PayoutStatus;
 use App\Exceptions\BusinessRuleException;
 use App\Models\Affiliate;
+use App\Models\AffiliatePayout;
 use App\Models\CommissionEntry;
 use App\Models\Order;
 use App\Models\User;
@@ -152,7 +153,7 @@ class RefundAndPayoutTest extends TestCase
             $this->fail('Duplicate payout should be rejected');
         } catch (BusinessRuleException) {
         }
-        $this->assertSame(1, \App\Models\AffiliatePayout::count());
+        $this->assertSame(1, AffiliatePayout::count());
     }
 
     public function test_failed_payout_releases_entries_for_a_new_payout_and_keeps_history(): void

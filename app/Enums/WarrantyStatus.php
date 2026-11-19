@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum WarrantyStatus: string
+enum WarrantyStatus: string implements \Filament\Support\Contracts\HasLabel
 {
     use HasLabel;
 

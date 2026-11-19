@@ -6,11 +6,24 @@ use App\Domain\Notifications\Sms\Msg91Gateway;
 use App\Domain\Notifications\Sms\SmsGateway;
 use App\Domain\Notifications\Sms\TestSmsGateway;
 use App\Domain\Notifications\Sms\TwilioGateway;
+use App\Models\Affiliate;
+use App\Models\AffiliatePayout;
 use App\Models\Category;
+use App\Models\CommissionEntry;
+use App\Models\Customer;
+use App\Models\Order;
 use App\Models\Page;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
+use App\Models\PurchasedUnit;
+use App\Models\Refund;
+use App\Models\Setting;
+use App\Models\Shipment;
+use App\Models\User;
+use App\Models\WarrantyClaim;
+use App\Models\WarrantyRegistration;
 use App\Support\CatalogueCache;
 use App\Support\Permissions;
 use App\Support\Settings;
@@ -46,23 +59,23 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Relation::enforceMorphMap([
-            'user' => \App\Models\User::class,
-            'customer' => \App\Models\Customer::class,
-            'order' => \App\Models\Order::class,
+            'user' => User::class,
+            'customer' => Customer::class,
+            'order' => Order::class,
             'product' => Product::class,
             'product_variant' => ProductVariant::class,
             'product_image' => ProductImage::class,
-            'shipment' => \App\Models\Shipment::class,
-            'purchased_unit' => \App\Models\PurchasedUnit::class,
-            'affiliate' => \App\Models\Affiliate::class,
-            'affiliate_payout' => \App\Models\AffiliatePayout::class,
-            'commission_entry' => \App\Models\CommissionEntry::class,
-            'warranty_registration' => \App\Models\WarrantyRegistration::class,
-            'warranty_claim' => \App\Models\WarrantyClaim::class,
-            'refund' => \App\Models\Refund::class,
-            'payment' => \App\Models\Payment::class,
+            'shipment' => Shipment::class,
+            'purchased_unit' => PurchasedUnit::class,
+            'affiliate' => Affiliate::class,
+            'affiliate_payout' => AffiliatePayout::class,
+            'commission_entry' => CommissionEntry::class,
+            'warranty_registration' => WarrantyRegistration::class,
+            'warranty_claim' => WarrantyClaim::class,
+            'refund' => Refund::class,
+            'payment' => Payment::class,
             'category' => Category::class,
-            'setting' => \App\Models\Setting::class,
+            'setting' => Setting::class,
             'page' => Page::class,
         ]);
 

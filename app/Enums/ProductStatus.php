@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum ProductStatus: string
+enum ProductStatus: string implements \Filament\Support\Contracts\HasLabel
 {
     use HasLabel;
 

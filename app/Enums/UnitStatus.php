@@ -2,8 +2,10 @@
 
 namespace App\Enums;
 
+use Filament\Support\Contracts\HasColor;
+
 /** Lifecycle of a single purchased unit (one record per quantity of an order item). */
-enum UnitStatus: string
+enum UnitStatus: string implements \Filament\Support\Contracts\HasLabel, HasColor
 {
     use HasLabel;
 

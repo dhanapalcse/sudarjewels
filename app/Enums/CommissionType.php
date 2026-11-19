@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum CommissionType: string
+enum CommissionType: string implements \Filament\Support\Contracts\HasLabel
 {
     use HasLabel;
 

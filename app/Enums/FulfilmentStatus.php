@@ -2,11 +2,13 @@
 
 namespace App\Enums;
 
+use Filament\Support\Contracts\HasColor;
+
 /**
  * Order-level fulfilment status, derived from the order's purchased units
  * except for "processing", which staff set manually while packing.
  */
-enum FulfilmentStatus: string
+enum FulfilmentStatus: string implements \Filament\Support\Contracts\HasLabel, HasColor
 {
     use HasLabel, HasTransitions;
 

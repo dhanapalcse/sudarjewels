@@ -23,8 +23,10 @@ use App\Models\OrderStatusHistory;
 use App\Models\PurchasedUnit;
 use App\Models\User;
 use App\Support\Audit;
+use App\Support\Money;
 use App\Support\Phone;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -157,7 +159,7 @@ class OrderService
 
                 return $order->refresh();
             });
-        } catch (\Illuminate\Database\UniqueConstraintViolationException $e) {
+        } catch (UniqueConstraintViolationException $e) {
             if ($idempotencyKey) {
                 return Order::where('created_by_id', $actor->id)->where('idempotency_key', $idempotencyKey)->firstOrFail();
             }
@@ -379,7 +381,7 @@ class OrderService
             $order->load('items');
             $estimate = 0;
             foreach ($order->items as $item) {
-                $commission = ($affiliate && $item->commission_enabled) ? \App\Support\Money::applyRate($item->commission_eligible_paise, $item->commission_rate_bp) : 0;
+                $commission = ($affiliate && $item->commission_enabled) ? Money::applyRate($item->commission_eligible_paise, $item->commission_rate_bp) : 0;
                 $item->update(['commission_paise' => $commission]);
                 $estimate += $commission;
             }

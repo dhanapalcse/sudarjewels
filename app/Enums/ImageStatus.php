@@ -2,7 +2,9 @@
 
 namespace App\Enums;
 
-enum ImageStatus: string
+use Filament\Support\Contracts\HasColor;
+
+enum ImageStatus: string implements \Filament\Support\Contracts\HasLabel, HasColor
 {
     use HasLabel;
 

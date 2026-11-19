@@ -37,6 +37,7 @@ final class Audit
             foreach (self::REDACT as $needle) {
                 if (is_string($key) && str_contains(strtolower($key), $needle)) {
                     $changes[$key] = '[redacted]';
+
                     continue 2;
                 }
             }

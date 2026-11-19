@@ -2,6 +2,8 @@
     /** @var \App\Support\Seo|null $seo */
     $seo ??= \App\Support\Seo::make($title ?? $settings->get('business.name'));
     $ga = $settings->ga4Id();
+    // No analytics on authenticated or verification pages.
+    $privateArea = ($privateArea ?? false) || request()->is('account*', 'warranty*', 'affiliate*');
 @endphp
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

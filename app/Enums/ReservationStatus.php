@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum ReservationStatus: string
+enum ReservationStatus: string implements \Filament\Support\Contracts\HasLabel
 {
     use HasLabel;
 

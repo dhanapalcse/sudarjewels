@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http;
 
-use App\Models\Affiliate;
 use App\Models\ReferralVisit;
 use App\Support\Settings;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -8,7 +8,6 @@ use App\Domain\Notifications\Sms\TestSmsGateway;
 use App\Domain\Warranty\WarrantyService;
 use App\Enums\OrderStatus;
 use App\Enums\OtpPurpose;
-use App\Exceptions\BusinessRuleException;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Order;

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum PayoutMethod: string
+enum PayoutMethod: string implements \Filament\Support\Contracts\HasLabel
 {
     use HasLabel;
 

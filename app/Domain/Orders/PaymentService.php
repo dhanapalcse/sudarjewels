@@ -18,6 +18,7 @@ use App\Models\PurchasedUnit;
 use App\Models\Refund;
 use App\Models\RefundItem;
 use App\Models\User;
+use App\Support\Money;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Facades\DB;
 
@@ -45,7 +46,7 @@ class PaymentService
             $order = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
             $outstanding = $order->grand_total_paise - $order->amount_paid_paise;
             if ($amountPaise > $outstanding) {
-                throw new BusinessRuleException('Payment exceeds the outstanding balance of '.\App\Support\Money::format($outstanding).'.');
+                throw new BusinessRuleException('Payment exceeds the outstanding balance of '.Money::format($outstanding).'.');
             }
             $payment = Payment::create([
                 'order_id' => $order->id,
@@ -59,7 +60,7 @@ class PaymentService
             ]);
             $order->increment('amount_paid_paise', $amountPaise);
             $this->refreshPaymentStatus($order->refresh(), $actor);
-            $this->orders->history($order, 'payment', null, $method->value, 'Payment '.\App\Support\Money::format($amountPaise).($reference ? " ref {$reference}" : ''), $actor);
+            $this->orders->history($order, 'payment', null, $method->value, 'Payment '.Money::format($amountPaise).($reference ? " ref {$reference}" : ''), $actor);
 
             return $payment;
         });
@@ -86,7 +87,7 @@ class PaymentService
             $order = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
             $refundable = $order->amount_paid_paise - $order->amount_refunded_paise;
             if ($amountPaise > $refundable) {
-                throw new BusinessRuleException('Refund exceeds the refundable amount of '.\App\Support\Money::format($refundable).'.');
+                throw new BusinessRuleException('Refund exceeds the refundable amount of '.Money::format($refundable).'.');
             }
             $refund = Refund::create([
                 'order_id' => $order->id,
@@ -121,7 +122,7 @@ class PaymentService
 
             $order->increment('amount_refunded_paise', $amountPaise);
             $this->refreshPaymentStatus($order->refresh(), $actor);
-            $this->orders->history($order, 'refund', null, $method->value, 'Refund '.\App\Support\Money::format($amountPaise).": {$reason}", $actor);
+            $this->orders->history($order, 'refund', null, $method->value, 'Refund '.Money::format($amountPaise).": {$reason}", $actor);
             $this->orders->refreshFulfilmentStatus($order, $actor);
 
             return $refund;

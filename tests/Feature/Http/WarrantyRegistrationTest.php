@@ -5,6 +5,7 @@ namespace Tests\Feature\Http;
 use App\Domain\Notifications\Sms\TestSmsGateway;
 use App\Domain\Orders\FulfilmentService;
 use App\Domain\Orders\OrderService;
+use App\Domain\Warranty\WarrantyService;
 use App\Models\Order;
 use App\Models\OtpCode;
 use App\Models\WarrantyRegistration;
@@ -92,7 +93,7 @@ class WarrantyRegistrationTest extends TestCase
 
     public function test_warranty_card_is_private(): void
     {
-        $reg = app(\App\Domain\Warranty\WarrantyService::class)->register($this->order, 'A', '9876543210');
+        $reg = app(WarrantyService::class)->register($this->order, 'A', '9876543210');
         $this->get(route('warranty.card', $reg))->assertRedirect(route('warranty.start'));
     }
 }

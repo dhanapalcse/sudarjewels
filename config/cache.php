@@ -1,5 +1,11 @@
 <?php
 
+use App\Models\Category;
+use App\Models\Page;
+use App\Models\Product;
+use App\Models\ProductImage;
+use App\Models\ProductVariant;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 return [
@@ -134,12 +140,12 @@ return [
     // Only public catalogue models are cached (see App\Support\CatalogueCache).
     'serializable_classes' => [
         Illuminate\Database\Eloquent\Collection::class,
-        Illuminate\Support\Collection::class,
-        App\Models\Category::class,
-        App\Models\Product::class,
-        App\Models\ProductVariant::class,
-        App\Models\ProductImage::class,
-        App\Models\Page::class,
+        Collection::class,
+        Category::class,
+        Product::class,
+        ProductVariant::class,
+        ProductImage::class,
+        Page::class,
     ],
 
 ];

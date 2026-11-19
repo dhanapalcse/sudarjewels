@@ -79,7 +79,7 @@ final class SampleImageGenerator
         imagearc($img, (int) ($w * 0.82), (int) ($h * 0.42), 300, 350, 0, 360, $gold);
         imagefilledellipse($img, (int) ($w * 0.68), (int) ($h * 0.64), 70, 70, $white);
         imagefilledellipse($img, (int) ($w * 0.82), (int) ($h * 0.64), 60, 60, $white);
-        self::label($img, 'SAMPLE IMAGE', $w);
+        self::label($img, 'SAMPLE IMAGE', (int) ($w * 0.6), true);
         ob_start();
         imagejpeg($img, null, 88);
         imagedestroy($img);
@@ -88,7 +88,7 @@ final class SampleImageGenerator
     }
 
     /** Large legible label: render with a built-in font, then scale up. */
-    private static function label(\GdImage $img, string $text, int $width): void
+    private static function label(\GdImage $img, string $text, int $width, bool $topRight = false): void
     {
         $font = 5;
         $tw = imagefontwidth($font) * strlen($text) + 8;
@@ -96,8 +96,11 @@ final class SampleImageGenerator
         $small = imagecreatetruecolor($tw, $th);
         imagefill($small, 0, 0, imagecolorallocate($small, 37, 51, 50));
         imagestring($small, $font, 4, 3, $text, imagecolorallocate($small, 250, 249, 246));
-        $scale = max(3, (int) ($width / 220));
-        imagecopyresized($img, $small, 30, 30, 0, 0, $tw * $scale, $th * $scale, $tw, $th);
+        // Bottom-centre: survives square/portrait crops and never sits under storefront badges.
+        $scale = max(3, (int) ($width / 260));
+        $x = $topRight ? (int) (imagesx($img) * 0.62) : (int) ((imagesx($img) - $tw * $scale) / 2);
+        $y = $topRight ? (int) (imagesy($img) * 0.08) : imagesy($img) - $th * $scale - (int) (imagesy($img) * 0.06);
+        imagecopyresized($img, $small, $x, $y, 0, 0, $tw * $scale, $th * $scale, $tw, $th);
         imagedestroy($small);
     }
 }

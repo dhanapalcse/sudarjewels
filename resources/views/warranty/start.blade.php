@@ -10,7 +10,7 @@
         @csrf
         <div>
             <label for="order_number" class="field-label">Order number</label>
-            <input id="order_number" name="order_number" value="{{ old('order_number') }}" required autocomplete="off" autocapitalize="characters" placeholder="e.g. SJ000123" class="field uppercase" aria-describedby="order-help @error('order_number') order-error @enderror">
+            <input id="order_number" name="order_number" value="{{ old('order_number') }}" required autocomplete="off" autocapitalize="characters" placeholder="e.g. SJ000123" class="field uppercase placeholder:normal-case" aria-describedby="order-help @error('order_number') order-error @enderror">
             <p id="order-help" class="field-help">Starts with SJ.</p>
             @error('order_number')<p id="order-error" class="field-error">{{ $message }}</p>@enderror
         </div>

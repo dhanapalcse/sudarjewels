@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum SalesChannel: string
+enum SalesChannel: string implements \Filament\Support\Contracts\HasLabel
 {
     use HasLabel;
 

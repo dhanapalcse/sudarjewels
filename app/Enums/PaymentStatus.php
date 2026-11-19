@@ -2,11 +2,13 @@
 
 namespace App\Enums;
 
+use Filament\Support\Contracts\HasColor;
+
 /**
  * Payment status is derived from the payment and refund ledgers
  * (see PaymentService::refreshPaymentStatus); transitions are still validated.
  */
-enum PaymentStatus: string
+enum PaymentStatus: string implements \Filament\Support\Contracts\HasLabel, HasColor
 {
     use HasLabel, HasTransitions;
 

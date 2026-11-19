@@ -2,10 +2,10 @@
 
 namespace Tests;
 
+use App\Domain\Inventory\InventoryService;
 use App\Domain\Orders\OrderService;
 use App\Enums\SalesChannel;
 use App\Enums\StockMovementType;
-use App\Domain\Inventory\InventoryService;
 use App\Models\Affiliate;
 use App\Models\Order;
 use App\Models\Product;

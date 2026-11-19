@@ -7,6 +7,8 @@ use App\Domain\Orders\OrderService;
 use App\Domain\Warranty\ClaimService;
 use App\Domain\Warranty\WarrantyService;
 use App\Enums\ClaimStatus;
+use App\Exceptions\BusinessRuleException;
+use App\Exceptions\InvalidTransition;
 use App\Models\ClaimAttachment;
 use App\Models\Customer;
 use App\Models\WarrantyClaim;
@@ -82,7 +84,7 @@ class ClaimTest extends TestCase
         try {
             $claims->transition($claim, ClaimStatus::Approved, $admin, '');
             $this->fail('Decision requires a reason');
-        } catch (\App\Exceptions\BusinessRuleException) {
+        } catch (BusinessRuleException) {
         }
         $claims->transition($claim, ClaimStatus::Approved, $admin, 'Manufacturing defect', ['decision_reason' => 'Manufacturing defect', 'resolution' => 'replacement']);
         $replacement = $claims->issueReplacement($claim->refresh(), $unit->orderItem->variant, $admin);
@@ -92,7 +94,7 @@ class ClaimTest extends TestCase
         $this->assertEquals($unit->warranty_ends_at, $replacement->warranty_ends_at);
         $this->assertSame('void', $unit->refresh()->warranty_status->value);
 
-        $this->expectException(\App\Exceptions\InvalidTransition::class);
+        $this->expectException(InvalidTransition::class);
         $claims->transition($claim->refresh(), ClaimStatus::Submitted, $admin);
     }
 }

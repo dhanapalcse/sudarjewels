@@ -12,13 +12,14 @@ use App\Enums\WarrantyStatus;
 use App\Models\WarrantyRegistration;
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class WarrantyTest extends TestCase
 {
     use RefreshDatabase;
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('boundaries')]
+    #[DataProvider('boundaries')]
     public function test_calendar_month_boundaries(string $deliveredLocal, string $expectedEndLocal): void
     {
         $start = CarbonImmutable::parse($deliveredLocal, 'Asia/Kolkata');

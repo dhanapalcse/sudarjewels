@@ -7,6 +7,7 @@ use App\Domain\Orders\QuoteChanged;
 use App\Enums\AttributionSource;
 use App\Enums\OrderStatus;
 use App\Enums\SalesChannel;
+use App\Mail\AffiliateQuoteRevised;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
@@ -43,7 +44,7 @@ class QuoteRevisionTest extends TestCase
         $this->assertSame(120000, $revised->grand_total_paise);
         $this->assertSame(24000, $revised->commission_estimate_paise);
         $this->assertSame(1, $revised->revisions()->count());
-        Mail::assertQueued(\App\Mail\AffiliateQuoteRevised::class);
+        Mail::assertQueued(AffiliateQuoteRevised::class);
 
         $confirmed = $service->confirm($revised, $admin);
         $this->assertSame(OrderStatus::Confirmed, $confirmed->status);

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ProductStatus;
+use App\Support\Settings;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -99,6 +100,6 @@ class Product extends Model
 
     public function warrantyMonths(): int
     {
-        return $this->warranty_months ?: (int) app(\App\Support\Settings::class)->get('warranty.months');
+        return $this->warranty_months ?: (int) app(Settings::class)->get('warranty.months');
     }
 }

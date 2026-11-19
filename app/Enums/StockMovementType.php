@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum StockMovementType: string
+enum StockMovementType: string implements \Filament\Support\Contracts\HasLabel
 {
     use HasLabel;
 

@@ -4,7 +4,6 @@ namespace Tests\Feature\Http;
 
 use App\Domain\Notifications\Sms\TestSmsGateway;
 use App\Models\Customer;
-use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
