@@ -99,7 +99,8 @@ final class SampleImageGenerator
         // Bottom-centre: survives square/portrait crops and never sits under storefront badges.
         $scale = max(3, (int) ($width / 260));
         $x = $topRight ? (int) (imagesx($img) * 0.62) : (int) ((imagesx($img) - $tw * $scale) / 2);
-        $y = $topRight ? (int) (imagesy($img) * 0.08) : imagesy($img) - $th * $scale - (int) (imagesy($img) * 0.06);
+        // 82 % down: still visible after a centred 4:3 crop (cards) and inside a circle (categories).
+        $y = $topRight ? (int) (imagesy($img) * 0.08) : (int) (imagesy($img) * 0.82) - $th * $scale;
         imagecopyresized($img, $small, $x, $y, 0, 0, $tw * $scale, $th * $scale, $tw, $th);
         imagedestroy($small);
     }

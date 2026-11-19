@@ -5,6 +5,9 @@
     $warrantyMonths = $product->warranty_eligible ? $product->warrantyMonths() : null;
 @endphp
 
+{{-- The sticky WhatsApp bar replaces the bottom navigation on product pages. --}}
+@section('hideBottomNav', '1')
+
 @section('content')
 <div class="container-page pb-28 pt-4 lg:pb-10">
     @if ($isPreview)

@@ -47,7 +47,7 @@ class Settings
             'tax.prices_include_tax' => true,
             'tax.gst_rate_bp' => 0,
             'inventory.low_stock_threshold' => config('sudar.inventory.low_stock_threshold'),
-            'home.hero_heading' => 'Everyday shine that stays',
+            'home.hero_heading' => 'A little shine. Every day.',
             'home.hero_subheading' => 'Korean-inspired, anti-tarnish jewellery made for daily wear.',
             'home.hero_image' => null,
             'home.warranty_heading' => 'Three-month warranty on every piece',

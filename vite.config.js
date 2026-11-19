@@ -10,7 +10,7 @@ export default defineConfig({
             refresh: true,
             // Self-hosted at build time; limited weights keep font payload small.
             fonts: [
-                bunny('Instrument Serif', { weights: [400] }),
+                bunny('Instrument Serif', { weights: [400], styles: ['normal', 'italic'] }),
                 bunny('DM Sans', { weights: [400, 500, 600] }),
             ],
         }),

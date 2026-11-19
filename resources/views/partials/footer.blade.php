@@ -5,10 +5,10 @@
     $email = $settings->get('business.email');
     $wa = $settings->whatsappNumber();
 @endphp
-<footer class="mt-16 border-t border-line bg-pearl">
+<footer class="mt-16 border-t border-line bg-white">
     <div class="container-page grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-            <p class="font-display text-2xl tracking-[0.18em] text-teal">SUDAR JEWELS</p>
+            <x-brand size="text-2xl" />
             <p class="mt-3 max-w-xs text-sm text-muted">{{ $settings->get('business.tagline') }}</p>
             @if ($social)
                 <ul class="mt-4 flex gap-1" aria-label="Social media">

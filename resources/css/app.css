@@ -35,7 +35,7 @@
     }
 
     body {
-        @apply bg-white font-sans text-charcoal antialiased;
+        @apply bg-pearl font-sans text-charcoal antialiased;
     }
 
     :focus-visible {
@@ -71,7 +71,7 @@
 }
 
 @utility btn {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
 }
 
 @utility btn-primary {
