@@ -33,7 +33,8 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
-            'serve' => true,
+            // Private: claim photos and image staging, served only via authorised controllers.
+            'serve' => false,
             'throw' => false,
             'report' => false,
         ],
@@ -44,6 +45,17 @@ return [
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
             'throw' => false,
+            'report' => false,
+        ],
+
+        // Optimised public product renditions. Set MEDIA_DISK to an S3-compatible disk (and
+        // MEDIA_CDN_URL) to serve images from a CDN instead.
+        'media' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/media'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage/media',
+            'visibility' => 'public',
+            'throw' => true,
             'report' => false,
         ],
 

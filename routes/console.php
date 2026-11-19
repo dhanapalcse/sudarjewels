@@ -1,8 +1,13 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use App\Jobs\MarkCommissionsPayable;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+/*
+| Scheduler — run `php artisan schedule:work` locally or add the cron entry
+| `* * * * * cd /path && php artisan schedule:run >> /dev/null 2>&1` in production.
+*/
+Schedule::job(new MarkCommissionsPayable)->dailyAt('02:30')->timezone(config('sudar.business.timezone'))->withoutOverlapping();
+Schedule::command('queue:prune-failed --hours=720')->daily();
+Schedule::command('model:prune')->daily();
+Schedule::call(fn () => \App\Models\OtpCode::where('created_at', '<', now()->subDays(2))->delete())->daily()->name('prune-otp-codes');

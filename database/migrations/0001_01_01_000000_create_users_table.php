@@ -16,7 +16,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone', 20)->nullable();
             $table->string('password');
+            $table->boolean('is_active')->default(true);
+            // Filament app (TOTP) two-factor authentication, encrypted by the model casts.
+            $table->text('app_authentication_secret')->nullable();
+            $table->text('app_authentication_recovery_codes')->nullable();
+            $table->timestamp('last_login_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
