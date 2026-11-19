@@ -131,6 +131,15 @@ return [
     |
     */
 
-    'serializable_classes' => false,
+    // Only public catalogue models are cached (see App\Support\CatalogueCache).
+    'serializable_classes' => [
+        Illuminate\Database\Eloquent\Collection::class,
+        Illuminate\Support\Collection::class,
+        App\Models\Category::class,
+        App\Models\Product::class,
+        App\Models\ProductVariant::class,
+        App\Models\ProductImage::class,
+        App\Models\Page::class,
+    ],
 
 ];

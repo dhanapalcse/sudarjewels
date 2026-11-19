@@ -8,10 +8,10 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
+            // Self-hosted at build time; limited weights keep font payload small.
             fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
-                }),
+                bunny('Instrument Serif', { weights: [400] }),
+                bunny('DM Sans', { weights: [400, 500, 600] }),
             ],
         }),
         tailwindcss(),

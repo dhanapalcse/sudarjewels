@@ -87,5 +87,8 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['layouts.*', 'partials.*', 'storefront.*', 'account.*', 'affiliate.*', 'warranty.*', 'components.*'], function ($view) {
             $view->with('settings', app(Settings::class));
         });
+        View::composer(['partials.header', 'partials.footer'], function ($view) {
+            $view->with('navCategories', CatalogueCache::remember('nav-categories', 3600, fn () => Category::active()->topLevel()->orderBy('sort_order')->limit(8)->get()));
+        });
     }
 }

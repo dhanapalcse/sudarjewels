@@ -29,8 +29,7 @@ class TestSmsGateway implements SmsGateway
 
     public function sendTransactional(string $phone, string $template, array $params): SmsResult
     {
-        $this->log($phone, $template);
-
+        // Logged by SendTransactionalSms (with its dedupe key).
         return new SmsResult(true, null, null, 'test');
     }
 
